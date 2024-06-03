@@ -1,4 +1,4 @@
-package java8.functionalinterfaceextensions;
+package java8.importantfunctionalinterface.extensions;
 
 public class ClassTwoAsChildFirstConstellation extends ClassOne implements InterfaceOne {
     public static void main(String[] args) {

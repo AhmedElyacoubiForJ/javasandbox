@@ -1,4 +1,4 @@
-package java8.functionalinterfaceextensions;
+package java8.importantfunctionalinterface.extensions;
 
 public class ClassTwoAsChildSecondConstellation implements InterfaceOne, InterfaceTwo {
     @Override // ambiguity so we must override
