@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class NewCollectionMethods {
+public class NewCollectionMethodsDemo {
     public static void main(String[] args) {
         // History
         // previously projects that use this interface

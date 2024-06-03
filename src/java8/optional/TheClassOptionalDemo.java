@@ -3,7 +3,7 @@ package java8.optional;
 import java.util.*;
 import java.util.function.Supplier;
 
-public class TheClassOptional {
+public class TheClassOptionalDemo {
     public static void main(String[] args) {
        /* // To avoid Null pointer exception
         Optional<String> helloWorldOptionalString = Optional.ofNullable("Hello world!");

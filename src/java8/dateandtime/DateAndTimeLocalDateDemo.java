@@ -1,12 +1,6 @@
 package java8.dateandtime;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class DateAndTimeLocalDate {
     public static void main(String[] args) {
