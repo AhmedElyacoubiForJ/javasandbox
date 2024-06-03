@@ -1,0 +1,6 @@
+first line Ü
+second line Ä
+third line §
+fourth line ß
+
+sixth line %

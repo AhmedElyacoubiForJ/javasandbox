@@ -2,7 +2,7 @@ package java8.dateandtime;
 
 import java.time.LocalDate;
 
-public class DateAndTimeLocalDate {
+public class DateAndTimeLocalDateDemo {
     public static void main(String[] args) {
         /* Problem before java 8*/
         /*  Date java8ReleaseAsDate = new Date(2014,3,18);
