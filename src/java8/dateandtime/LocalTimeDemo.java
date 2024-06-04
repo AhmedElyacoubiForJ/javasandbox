@@ -3,7 +3,7 @@ package java8.dateandtime;
 import java.time.Duration;
 import java.time.LocalTime;
 
-public class DateAndTimeLocalTimeDemo {
+public class LocalTimeDemo {
     public static void main(String[] args) {
         LocalTime midday = LocalTime.of(12, 0, 0, 0);
         //System.out.println(midday);
