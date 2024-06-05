@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class SortedMaxMin {
+public class StreamSortedMaxMinDemo {
     public static void main(String[] args) {
         List<String> myLetters = Arrays.asList("one","five","seven","eleven", "thirteen");
 //        myLetters.stream()

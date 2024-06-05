@@ -3,9 +3,8 @@ package java8.streams;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-public class Filer {
+public class StreamFilerDemo {
     public static void main(String[] args) {
         List<Integer> myNumbers = Arrays.asList(1, 2, 3, 4);
         myNumbers.stream()
