@@ -1,4 +1,4 @@
-package java8.model;
+package java8.practice.data;
 
 import java.util.ArrayList;
 import java.util.List;

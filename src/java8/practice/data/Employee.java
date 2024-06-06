@@ -1,4 +1,4 @@
-package java8.model;
+package java8.practice.data;
 
 public class Employee {
     private String 	name;
