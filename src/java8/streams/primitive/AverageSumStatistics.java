@@ -3,7 +3,6 @@ package java8.streams.primitive;
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class AverageSumStatistics {
     public static void main(String[] args) {
@@ -21,9 +20,9 @@ public class AverageSumStatistics {
 
         // max salary
         int maxSalary = people.stream()
-               .mapToInt(person -> person.salary)
-               .max()
-               .getAsInt();
+                .mapToInt(person -> person.salary)
+                .max()
+                .getAsInt();
         System.out.println(maxSalary);
 
         // average age
@@ -48,32 +47,14 @@ public class AverageSumStatistics {
         IntSummaryStatistics salaryStatistics = people.stream()
                 .mapToInt(person -> person.salary)
                 .summaryStatistics();
-//        System.out.println(salaryStatistics.getAverage());
-//        System.out.println(salaryStatistics.getMax());
-//        System.out.println(salaryStatistics.getMin());
-//        System.out.println(salaryStatistics.getSum());
-//        System.out.println(salaryStatistics.getCount());
         System.out.println(salaryStatistics);
-
-       /* // average salary
-        double averageSalary = people.stream()
-               .mapToInt(person -> person.salary)
-               .average()
-               .getAsDouble();
-        System.out.println(averageSalary);
-
-        // count
-        long count = people.stream()
-               .mapToInt(person -> person.salary)
-               .count();
-        System.out.println(count);*/
-
     }
 }
 
 class Person {
     int age;
     int salary;
+
     public Person(int age, int salary) {
         this.age = age;
         this.salary = salary;
