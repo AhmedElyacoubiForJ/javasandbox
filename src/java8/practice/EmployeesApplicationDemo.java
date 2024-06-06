@@ -5,7 +5,6 @@ import java8.practice.data.Employees;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
