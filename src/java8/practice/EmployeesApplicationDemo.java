@@ -50,6 +50,9 @@ public class EmployeesApplicationDemo {
     }
 
     private static void printNumberPerGenderInSalesAndMarketingDepartment() {
+        // 1. filter by department
+        // 2. classify by gender
+        // 3. reduce by number
         Predicate<Employee> isSalesAndMarketing = e -> "Sales And Marketing".equals(e.getDepartment());
         employees.stream()
                 .filter(isSalesAndMarketing)
