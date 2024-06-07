@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BinaryOperator;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -35,8 +36,23 @@ public class EmployeesApplicationDemo {
         //printNumberOfEmployeesInEachDepartment();
 
         // 7. What is the average salary of each department?
-        printAverageSalaryPerDepartment();
+        //printAverageSalaryPerDepartment();
 
+        // 8. Get the details of youngest male employee in the product development department?
+        printYoungestMaleInProductDevelopmentDepartment();
+
+    }
+
+    private static void printYoungestMaleInProductDevelopmentDepartment() {
+        Predicate<Employee> isProductDevelopment = e -> "Product Development".equals(e.getDepartment());
+        Predicate<Employee> isMale = e -> "Male".equals(e.getGender());
+
+        Predicate<Employee> isProductDevelopmentAndMale = isProductDevelopment.and(isMale);
+
+        employees.stream()
+                .filter(isProductDevelopmentAndMale)
+                .min(Comparator.comparingInt(Employee::getAge))
+                .ifPresent(System.out::println);
     }
 
     private static void printAverageSalaryPerDepartment() {
