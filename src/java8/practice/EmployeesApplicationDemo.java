@@ -29,8 +29,21 @@ public class EmployeesApplicationDemo {
         //printHighestPaidEmployee();
 
         // 5. Get the names of all employees who have joined after 2015, sorted?
-        printSortedEmployeesJoinedAfter2025();
+        //printSortedEmployeesJoinedAfter2025();
 
+        // 6. Count the number of employees in each department?
+        printNumberOfEmployeesInEachDepartment();
+
+    }
+
+    private static void printNumberOfEmployeesInEachDepartment() {
+        employees.stream()
+                .collect(Collectors.groupingBy(
+                                Employee::getDepartment, // classifier
+                                Collectors.counting()    // reducer
+                        )
+                )
+                .forEach((gKey, gValue) -> System.out.println(gKey + " : " + gValue));
     }
 
     private static void printSortedEmployeesJoinedAfter2025() {
