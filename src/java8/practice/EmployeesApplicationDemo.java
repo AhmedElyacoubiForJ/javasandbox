@@ -14,13 +14,25 @@ public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
     public static void main(String[] args) {
         // 1. How many male and female employees are there in the organization?
-        printCountEmployeeGroupByGender();
+        //printCountEmployeeGroupByGender();
 
         // 2. Print the name of all departments in the organization, sorted?
-        printDepartmentNamesSorted();
+        //printDepartmentNamesSorted();
 
         // 3. What is the average age of male and female employees?
+        printAverageAgeByGender();
 
+    }
+
+    private static void printAverageAgeByGender() {
+        employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getGender, // classifier
+                        //Collectors.mapping(Employee::getAge, toList())
+                        Collectors.averagingDouble(Employee::getAge) // downstream reduction
+                        )
+                )
+                .forEach((genderKey, averageValue) -> System.out.println(genderKey + " : " + averageValue));
     }
 
     private static void printDepartmentNamesSorted() {
