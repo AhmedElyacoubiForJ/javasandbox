@@ -24,8 +24,19 @@ public class EmployeesApplicationDemo {
         //printAverageAgeByGender();
 
         // 4. Get the details of highest paid employee in the organization?
-        printHighestPaidEmployee();
+        //printHighestPaidEmployee();
 
+        // 5. Get the names of all employees who have joined after 2015, sorted?
+        printSortedEmployeesJoinedAfter2025();
+
+    }
+
+    private static void printSortedEmployeesJoinedAfter2025() {
+        employees.stream()
+                .filter(e -> e.getYearOfJoining() > 2015)
+                .map(e -> e.getName())
+                .sorted(Comparator.naturalOrder())
+                .forEach(System.out::println);
     }
 
     private static void printHighestPaidEmployee() {
