@@ -12,6 +12,7 @@ import static java.util.stream.Collectors.toList;
 
 public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
+
     public static void main(String[] args) {
         // printEmployeesAgeGreaterThan(30);
 
@@ -68,8 +69,8 @@ public class EmployeesApplicationDemo {
         Optional<Employee> oldestEmployee = employees.stream()
                 .max(Comparator.comparing(Employee::getAge));
         System.out.println("Name : " + oldestEmployee.get().getName());
-        System.out.println("Age : " +oldestEmployee.get().getAge());
-        System.out.println("Department : " +oldestEmployee.get().getDepartment());
+        System.out.println("Age : " + oldestEmployee.get().getAge());
+        System.out.println("Department : " + oldestEmployee.get().getDepartment());
     }
 
     private static void printYoungerOrEqualTo25() {
@@ -90,8 +91,8 @@ public class EmployeesApplicationDemo {
         // 2. approach
         Map<Boolean, List<String>> collect = employees.stream()
                 .collect(Collectors.partitioningBy(
-                        isYoungerOrEqualTo25,
-                        Collectors.mapping(Employee::getName, toList())
+                                isYoungerOrEqualTo25,
+                                Collectors.mapping(Employee::getName, toList())
                         )
                 );
 
@@ -121,8 +122,8 @@ public class EmployeesApplicationDemo {
         // classify by gender, mapping by name and collect the mapping result to toList
         employees.stream()
                 .collect(Collectors.groupingBy(
-                        Employee::getDepartment,
-                        Collectors.mapping(Employee::getName, toList())
+                                Employee::getDepartment,
+                                Collectors.mapping(Employee::getName, toList())
                         )
                 )
                 .forEach((k, v) -> System.out.println(k + "=" + v));
@@ -132,8 +133,8 @@ public class EmployeesApplicationDemo {
         // classify by gender, salary average as reduce operation
         employees.stream()
                 .collect(Collectors.groupingBy(
-                        Employee::getGender,
-                        Collectors.averagingDouble(Employee::getSalary)
+                                Employee::getGender,
+                                Collectors.averagingDouble(Employee::getSalary)
                         )
                 )
                 .forEach((k, v) -> System.out.println(k + "=" + v));
@@ -178,7 +179,7 @@ public class EmployeesApplicationDemo {
                 .collect(Collectors.groupingBy(
                         Employee::getDepartment,
                         Collectors.averagingDouble(Employee::getSalary)
-                        ))
+                ))
                 .forEach((gKey, gValue) -> System.out.println(gKey + " : " + gValue));
     }
 
@@ -215,9 +216,9 @@ public class EmployeesApplicationDemo {
     private static void printAverageAgeByGender() {
         employees.stream()
                 .collect(Collectors.groupingBy(
-                        Employee::getGender, // classifier
-                        //Collectors.mapping(Employee::getAge, toList())
-                        Collectors.averagingDouble(Employee::getAge) // downstream reduction
+                                Employee::getGender, // classifier
+                                //Collectors.mapping(Employee::getAge, toList())
+                                Collectors.averagingDouble(Employee::getAge) // downstream reduction
                         )
                 )
                 .forEach((genderKey, averageValue) -> System.out.println(genderKey + " : " + averageValue));
@@ -248,8 +249,8 @@ public class EmployeesApplicationDemo {
 
         employees.stream()
                 .collect(Collectors.groupingBy(
-                        Employee::getGender,
-                        Collectors.counting()
+                                Employee::getGender,
+                                Collectors.counting()
                         )
                 )
                 .forEach((gKey, gValue) -> System.out.println(gKey + " : " + gValue));
