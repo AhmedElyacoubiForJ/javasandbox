@@ -6,6 +6,7 @@ import java8.practice.data.Employees;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -20,8 +21,23 @@ public class EmployeesApplicationDemo {
         //printDepartmentNamesSorted();
 
         // 3. What is the average age of male and female employees?
-        printAverageAgeByGender();
+        //printAverageAgeByGender();
 
+        // 4. Get the details of highest paid employee in the organization?
+        printHighestPaidEmployee();
+
+    }
+
+    private static void printHighestPaidEmployee() {
+        // 1. approach
+        BinaryOperator<Employee> withSalaryGreater = (e1, e2) -> e1.getSalary() > e2.getSalary() ? e1 : e2;
+        employees.stream().reduce(withSalaryGreater)
+                .ifPresent(System.out::println);
+
+        // 2. approach
+        employees.stream()
+                .collect(Collectors.maxBy(Comparator.comparing(Employee::getSalary)))
+                .ifPresent(System.out::println);
     }
 
     private static void printAverageAgeByGender() {
