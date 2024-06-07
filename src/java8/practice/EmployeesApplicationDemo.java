@@ -4,20 +4,44 @@ import java8.practice.data.Employee;
 import java8.practice.data.Employees;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
     public static void main(String[] args) {
-        employees.forEach(System.out::println);
-        // employees age greater than 30
-        System.out.println(employeesAgeGreaterThan(30));
+        // 1. How many male and female employees are there in the organization?
+        printCountEmployeeGroupByGender();
+
+    }
+
+    public static void printCountEmployeeGroupByGender() {
+        // employees grouped by gender
+        Map<String, List<Employee>> employeesGroupByGender = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getGender, Collectors.toList()));
+        //employeesGroupByGender.forEach((gKey, eValue) -> System.out.println(gKey + " : " + eValue));
+
+        // employees name grouped by gender
+        Map<String, List<String>> employeesNameGroupByGender = employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getGender,
+                        Collectors.mapping(Employee::getName, toList()
+                        )
+                ));
+        //employeesNameGroupByGender.forEach((gKey, nValue) -> System.out.println(gKey + " : " + nValue));
+
+        Map<String, Long> genderTypeToCountMap = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
+        genderTypeToCountMap.forEach((k, v) -> System.out.println(k + " : " + v));
+
 
     }
 
     public static long employeesAgeGreaterThan(int age) {
         return employees.stream()
                 .filter(e -> e.getAge() > age)
-                .collect(Collectors.toList()).stream().count();
+                .collect(toList()).stream().count();
     }
 }
