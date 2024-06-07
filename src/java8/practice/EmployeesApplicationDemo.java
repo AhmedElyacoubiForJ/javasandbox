@@ -3,9 +3,7 @@ package java8.practice;
 import java8.practice.data.Employee;
 import java8.practice.data.Employees;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -51,8 +49,28 @@ public class EmployeesApplicationDemo {
         //printAverageSalaryPerGender();
 
         // 12. List down the names of all employees in each department?
-        printNamesPerDepartment();
+        //printNamesPerDepartment();
 
+        // 13. What is the average salary and total salary of the whole organization?
+        printSalaryStatisticsOfTheOrganisation();
+
+    }
+
+    private static void printSalaryStatisticsOfTheOrganisation() {
+        // 1. approach
+        DoubleSummaryStatistics salaryStatistics = employees.stream()
+                .mapToDouble(Employee::getSalary)
+                .summaryStatistics();
+        System.out.println("Average Salary = " + salaryStatistics.getAverage());
+        System.out.println("Total Salary = " + salaryStatistics.getSum());
+        //System.out.println(salaryStatistics);
+
+        System.out.println("");
+        // 2. approach
+        DoubleSummaryStatistics salaryStatistics2 = employees.stream()
+                .collect(Collectors.summarizingDouble(Employee::getSalary));
+        System.out.println("Average Salary = " + salaryStatistics2.getAverage());
+        System.out.println("Total Salary = " + salaryStatistics2.getSum());
     }
 
     private static void printNamesPerDepartment() {
