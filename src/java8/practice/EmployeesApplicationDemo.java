@@ -39,8 +39,23 @@ public class EmployeesApplicationDemo {
         //printAverageSalaryPerDepartment();
 
         // 8. Get the details of youngest male employee in the product development department?
-        printYoungestMaleInProductDevelopmentDepartment();
+        //printYoungestMaleInProductDevelopmentDepartment();
 
+        // 9. Who has the most working experience in the organization?
+        printWithMoreExperience();
+
+    }
+
+    private static void printWithMoreExperience() {
+        // 1. approach
+        employees.stream()
+                .min(Comparator.comparingInt(Employee::getYearOfJoining))
+                .ifPresent(System.out::println);
+        // 2. approach
+        employees.stream()
+                .sorted(Comparator.comparingInt(Employee::getYearOfJoining))
+                .findFirst()
+                .ifPresent(System.out::println);
     }
 
     private static void printYoungestMaleInProductDevelopmentDepartment() {
