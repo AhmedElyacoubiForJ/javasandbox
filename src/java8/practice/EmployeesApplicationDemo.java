@@ -52,8 +52,40 @@ public class EmployeesApplicationDemo {
         //printNamesPerDepartment();
 
         // 13. What is the average salary and total salary of the whole organization?
-        printSalaryStatisticsOfTheOrganisation();
+        //printSalaryStatisticsOfTheOrganisation();
 
+        // 14. Separate the employees who are younger or equal to 25 years
+        //     from those employees who are older than 25 years.
+        printYoungerOrEqualTo25();
+
+    }
+
+    private static void printYoungerOrEqualTo25() {
+        // 1. approach
+        Predicate<Employee> isYoungerOrEqualTo25 = e -> e.getAge() <= 25;
+        employees.stream()
+                .filter(isYoungerOrEqualTo25)
+                .map(Employee::getName)
+                .forEach(System.out::println);
+        System.out.println("");
+        employees.stream()
+                .filter(isYoungerOrEqualTo25.negate())
+                .map(Employee::getName)
+                .forEach(System.out::println);
+
+        System.out.println("");
+
+        // 2. approach
+        Map<Boolean, List<String>> collect = employees.stream()
+                .collect(Collectors.partitioningBy(
+                        isYoungerOrEqualTo25,
+                        Collectors.mapping(Employee::getName, toList())
+                        )
+                );
+
+        collect.get(Boolean.TRUE).forEach(System.out::println);
+        System.out.println("");
+        collect.get(Boolean.FALSE).forEach(System.out::println);
     }
 
     private static void printSalaryStatisticsOfTheOrganisation() {
