@@ -32,8 +32,20 @@ public class EmployeesApplicationDemo {
         //printSortedEmployeesJoinedAfter2025();
 
         // 6. Count the number of employees in each department?
-        printNumberOfEmployeesInEachDepartment();
+        //printNumberOfEmployeesInEachDepartment();
 
+        // 7. What is the average salary of each department?
+        printAverageSalaryPerDepartment();
+
+    }
+
+    private static void printAverageSalaryPerDepartment() {
+        employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment,
+                        Collectors.averagingDouble(Employee::getSalary)
+                        ))
+                .forEach((gKey, gValue) -> System.out.println(gKey + " : " + gValue));
     }
 
     private static void printNumberOfEmployeesInEachDepartment() {
