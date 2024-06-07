@@ -42,7 +42,19 @@ public class EmployeesApplicationDemo {
         //printYoungestMaleInProductDevelopmentDepartment();
 
         // 9. Who has the most working experience in the organization?
-        printWithMoreExperience();
+        //printWithMoreExperience();
+
+        // 10. How many male and female employees are there in the sales and marketing team?
+        printNumberPerGenderInSalesAndMarketingDepartment();
+
+    }
+
+    private static void printNumberPerGenderInSalesAndMarketingDepartment() {
+        Predicate<Employee> isSalesAndMarketing = e -> "Sales And Marketing".equals(e.getDepartment());
+        employees.stream()
+                .filter(isSalesAndMarketing)
+                .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()))
+                .forEach((k, v) -> System.out.println(k + "=" + v ));
 
     }
 
