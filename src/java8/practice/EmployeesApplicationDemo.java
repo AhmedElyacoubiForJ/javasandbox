@@ -14,6 +14,8 @@ import static java.util.stream.Collectors.toList;
 public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
     public static void main(String[] args) {
+        // printEmployeesAgeGreaterThan(30);
+
         // 1. How many male and female employees are there in the organization?
         //printCountEmployeeGroupByGender();
 
@@ -94,9 +96,7 @@ public class EmployeesApplicationDemo {
                 .forEach((gKey, gValue) -> System.out.println(gKey + " : " + gValue));
     }
 
-    public static long employeesAgeGreaterThan(int age) {
-        return employees.stream()
-                .filter(e -> e.getAge() > age)
-                .collect(toList()).stream().count();
+    public static void printEmployeesAgeGreaterThan(int age) {
+        System.out.println(employees.stream().filter(e -> e.getAge() > age).count());
     }
 }
