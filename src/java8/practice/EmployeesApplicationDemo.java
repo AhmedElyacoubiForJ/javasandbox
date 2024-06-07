@@ -14,10 +14,12 @@ public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
     public static void main(String[] args) {
         // 1. How many male and female employees are there in the organization?
-        //printCountEmployeeGroupByGender();
+        printCountEmployeeGroupByGender();
 
         // 2. Print the name of all departments in the organization? sorted
-        printDepartmentNames();
+        //printDepartmentNames();
+
+        // 3. What is the average age of male and female employees?
 
     }
 
@@ -27,7 +29,6 @@ public class EmployeesApplicationDemo {
                 .distinct()
                 .sorted(Comparator.naturalOrder())
                 .forEach(System.out::println);
-
     }
 
     public static void printCountEmployeeGroupByGender() {
@@ -45,11 +46,13 @@ public class EmployeesApplicationDemo {
                 ));
         //employeesNameGroupByGender.forEach((gKey, nValue) -> System.out.println(gKey + " : " + nValue));
 
-        Map<String, Long> genderTypeToCountMap = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
-        genderTypeToCountMap.forEach((k, v) -> System.out.println(k + " : " + v));
-
-
+        employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getGender,
+                        Collectors.counting()
+                        )
+                )
+                .forEach((gKey, gValue) -> System.out.println(gKey + " : " + gValue));
     }
 
     public static long employeesAgeGreaterThan(int age) {
