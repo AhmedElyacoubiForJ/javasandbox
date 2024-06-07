@@ -56,8 +56,20 @@ public class EmployeesApplicationDemo {
 
         // 14. Separate the employees who are younger or equal to 25 years
         //     from those employees who are older than 25 years.
-        printYoungerOrEqualTo25();
+        // printYoungerOrEqualTo25();
 
+        // 15. Who is the oldest employee in the organization?
+        //     What is his age and which department he belongs to?
+        printOldestEmployee();
+
+    }
+
+    private static void printOldestEmployee() {
+        Optional<Employee> oldestEmployee = employees.stream()
+                .max(Comparator.comparing(Employee::getAge));
+        System.out.println("Name : " + oldestEmployee.get().getName());
+        System.out.println("Age : " +oldestEmployee.get().getAge());
+        System.out.println("Department : " +oldestEmployee.get().getDepartment());
     }
 
     private static void printYoungerOrEqualTo25() {
