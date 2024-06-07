@@ -16,14 +16,14 @@ public class EmployeesApplicationDemo {
         // 1. How many male and female employees are there in the organization?
         printCountEmployeeGroupByGender();
 
-        // 2. Print the name of all departments in the organization? sorted
-        //printDepartmentNames();
+        // 2. Print the name of all departments in the organization, sorted?
+        printDepartmentNamesSorted();
 
         // 3. What is the average age of male and female employees?
 
     }
 
-    private static void printDepartmentNames() {
+    private static void printDepartmentNamesSorted() {
         employees.stream()
                 .map(Employee::getDepartment)
                 .distinct()
