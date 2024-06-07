@@ -45,20 +45,32 @@ public class EmployeesApplicationDemo {
         //printWithMoreExperience();
 
         // 10. How many male and female employees are there in the sales and marketing team?
-        printNumberPerGenderInSalesAndMarketingDepartment();
+        //printNumberPerGenderInSalesAndMarketingDepartment();
 
+        // 11. What is the average salary of male and female employees?
+        printAverageSalaryPerGender();
+
+    }
+
+    private static void printAverageSalaryPerGender() {
+        // classify by gender, salary average as reduce operation
+        employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getGender,
+                        Collectors.averagingDouble(Employee::getSalary)
+                        )
+                )
+                .forEach((k, v) -> System.out.println(k + "=" + v));
     }
 
     private static void printNumberPerGenderInSalesAndMarketingDepartment() {
         // 1. filter by department
-        // 2. classify by gender
-        // 3. reduce by number
+        // 2. classify by gender, counting as reduce operation
         Predicate<Employee> isSalesAndMarketing = e -> "Sales And Marketing".equals(e.getDepartment());
         employees.stream()
                 .filter(isSalesAndMarketing)
                 .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()))
-                .forEach((k, v) -> System.out.println(k + "=" + v ));
-
+                .forEach((k, v) -> System.out.println(k + "=" + v));
     }
 
     private static void printWithMoreExperience() {
