@@ -3,6 +3,7 @@ package java8.practice;
 import java8.practice.data.Employee;
 import java8.practice.data.Employees;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,7 +14,19 @@ public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
     public static void main(String[] args) {
         // 1. How many male and female employees are there in the organization?
-        printCountEmployeeGroupByGender();
+        //printCountEmployeeGroupByGender();
+
+        // 2. Print the name of all departments in the organization? sorted
+        printDepartmentNames();
+
+    }
+
+    private static void printDepartmentNames() {
+        employees.stream()
+                .map(Employee::getDepartment)
+                .distinct()
+                .sorted(Comparator.naturalOrder())
+                .forEach(System.out::println);
 
     }
 
