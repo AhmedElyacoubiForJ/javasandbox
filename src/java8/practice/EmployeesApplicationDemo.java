@@ -48,8 +48,22 @@ public class EmployeesApplicationDemo {
         //printNumberPerGenderInSalesAndMarketingDepartment();
 
         // 11. What is the average salary of male and female employees?
-        printAverageSalaryPerGender();
+        //printAverageSalaryPerGender();
 
+        // 12. List down the names of all employees in each department?
+        printNamesPerDepartment();
+
+    }
+
+    private static void printNamesPerDepartment() {
+        // classify by gender, mapping by name and collect the mapping result to toList
+        employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment,
+                        Collectors.mapping(Employee::getName, toList())
+                        )
+                )
+                .forEach((k, v) -> System.out.println(k + "=" + v));
     }
 
     private static void printAverageSalaryPerGender() {
