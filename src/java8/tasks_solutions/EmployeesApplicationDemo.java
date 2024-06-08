@@ -14,54 +14,55 @@ public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
 
     public static void main(String[] args) {
-         //printEmployeesAgeGreaterThan(30);
+        // warm up
+        printEmployeesAgeGreaterThan(30);
 
         // 1. How many male and female employees are there in the organization?
-        //printEmployeesNumberPerGender();
+        printEmployeesNumberPerGender();
 
         // 2. Print the name of all departments in the organization, sorted?
-        //printDepartmentNamesSorted();
+        printDepartmentNamesSorted();
 
         // 3. What is the average age of male and female employees?
-        //printAgeAverageByGender();
+        printAgeAverageByGender();
 
         // 4. Get the details of highest paid employee in the organization?
-        //printHighestPaidEmployee();
+        printHighestPaidEmployee();
 
         // 5. Get the names of all employees who have joined after 2015, sorted?
-        //printEmployeesJoinedAfter2025Sorted();
+        printEmployeesJoinedAfter2025Sorted();
 
         // 6. Count the number of employees in each department?
-        //printNumberOfEmployeesInEachDepartment();
+        printNumberOfEmployeesInEachDepartment();
 
         // 7. What is the average salary of each department?
-        //printSalaryAveragePerDepartment();
+        printSalaryAveragePerDepartment();
 
         // 8. Get the details of youngest male employee in the product development department?
-        //printYoungestMaleInProductDevelopment();
+        printYoungestMaleInProductDevelopment();
 
         // 9. Who has the most working experience in the organization?
-        //printEmployeeWithMoreExperience();
+        printEmployeeWithMoreExperience();
 
         // 10. How many male and female employees are there in the sales and marketing team?
-        // printNumberInSalesAndMarketingDepartmentPerGender();
+        printNumberInSalesAndMarketingDepartmentPerGender();
 
         // 11. What is the average salary of male and female employees?
-        //printSalaryAveragePerGender();
+        printSalaryAveragePerGender();
 
         // 12. List down the names of all employees in each department?
-        //printEmployeeNamesPerDepartment();
+        printEmployeeNamesPerDepartment();
 
         // 13. What is the average salary and total salary of the whole organization?
         printSalaryStatisticsOfTheOrganisation();
 
         // 14. Separate the employees who are younger or equal to 25 years
         //     from those employees who are older than 25 years.
-        // printYoungerOrEqualTo25();
+        printEmployeeYoungerOrEqualTo25();
 
         // 15. Who is the oldest employee in the organization?
         //     What is his age and which department he belongs to?
-        //printOldestEmployee();
+        printOldestEmployee();
 
     }
 
@@ -73,7 +74,7 @@ public class EmployeesApplicationDemo {
         System.out.println("Department : " + oldestEmployee.get().getDepartment());
     }
 
-    private static void printYoungerOrEqualTo25() {
+    private static void printEmployeeYoungerOrEqualTo25() {
         // 1. approach
         Predicate<Employee> isYoungerOrEqualTo25 = e -> e.getAge() <= 25;
         employees.stream()
