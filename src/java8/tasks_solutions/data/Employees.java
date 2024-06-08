@@ -1,4 +1,4 @@
-package java8.practice.data;
+package java8.tasks_solutions.data;
 
 import java.util.ArrayList;
 import java.util.List;

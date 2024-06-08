@@ -1,7 +1,7 @@
-package java8.practice;
+package java8.tasks_solutions;
 
-import java8.practice.data.Employee;
-import java8.practice.data.Employees;
+import java8.tasks_solutions.data.Employee;
+import java8.tasks_solutions.data.Employees;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
@@ -14,34 +14,34 @@ public class EmployeesApplicationDemo {
     public static List<Employee> employees = Employees.getEmployees();
 
     public static void main(String[] args) {
-        // printEmployeesAgeGreaterThan(30);
+         //printEmployeesAgeGreaterThan(30);
 
         // 1. How many male and female employees are there in the organization?
-        //printCountEmployeeGroupByGender();
+        //printEmployeesNumberPerGender();
 
         // 2. Print the name of all departments in the organization, sorted?
         //printDepartmentNamesSorted();
 
         // 3. What is the average age of male and female employees?
-        //printAverageAgeByGender();
+        //printAgeAverageByGender();
 
         // 4. Get the details of highest paid employee in the organization?
         //printHighestPaidEmployee();
 
         // 5. Get the names of all employees who have joined after 2015, sorted?
-        //printSortedEmployeesJoinedAfter2025();
+        //printEmployeesJoinedAfter2025Sorted();
 
         // 6. Count the number of employees in each department?
         //printNumberOfEmployeesInEachDepartment();
 
         // 7. What is the average salary of each department?
-        //printAverageSalaryPerDepartment();
+        //printSalaryAveragePerDepartment();
 
         // 8. Get the details of youngest male employee in the product development department?
-        //printYoungestMaleInProductDevelopmentDepartment();
+        //printYoungestMaleInProductDevelopment();
 
         // 9. Who has the most working experience in the organization?
-        //printWithMoreExperience();
+        printWithMoreExperience();
 
         // 10. How many male and female employees are there in the sales and marketing team?
         //printNumberPerGenderInSalesAndMarketingDepartment();
@@ -61,7 +61,7 @@ public class EmployeesApplicationDemo {
 
         // 15. Who is the oldest employee in the organization?
         //     What is his age and which department he belongs to?
-        printOldestEmployee();
+        //printOldestEmployee();
 
     }
 
@@ -162,62 +162,70 @@ public class EmployeesApplicationDemo {
                 .ifPresent(System.out::println);
     }
 
-    private static void printYoungestMaleInProductDevelopmentDepartment() {
+    private static void printYoungestMaleInProductDevelopment() {
         Predicate<Employee> isProductDevelopment = e -> "Product Development".equals(e.getDepartment());
         Predicate<Employee> isMale = e -> "Male".equals(e.getGender());
+        Predicate<Employee> isBoth = isProductDevelopment.and(isMale);
 
-        Predicate<Employee> isProductDevelopmentAndMale = isProductDevelopment.and(isMale);
-
+        // filter using the implemented chained filter
+        // & reduce by using the comparingInt comparator w. age as key extractor
         employees.stream()
-                .filter(isProductDevelopmentAndMale)
+                .filter(isBoth)
                 .min(Comparator.comparingInt(Employee::getAge))
                 .ifPresent(System.out::println);
     }
 
-    private static void printAverageSalaryPerDepartment() {
+    private static void printSalaryAveragePerDepartment() {
+        // classify by department & reduce by averageDouble collector mapped by salary
         employees.stream()
                 .collect(Collectors.groupingBy(
                         Employee::getDepartment,
                         Collectors.averagingDouble(Employee::getSalary)
                 ))
-                .forEach((gKey, gValue) -> System.out.println(gKey + " : " + gValue));
+                .forEach((departmentKey, salaryAverageValue) ->
+                        System.out.println(departmentKey + " : " + salaryAverageValue));
     }
 
     private static void printNumberOfEmployeesInEachDepartment() {
+        // classify by department & reduce by number of employees using the counting collectors
         employees.stream()
                 .collect(Collectors.groupingBy(
                                 Employee::getDepartment, // classifier
                                 Collectors.counting()    // reducer
                         )
                 )
-                .forEach((gKey, gValue) -> System.out.println(gKey + " : " + gValue));
+                .forEach((departmentKey, countValue) -> System.out.println(departmentKey + " : " + countValue));
     }
 
-    private static void printSortedEmployeesJoinedAfter2025() {
+    private static void printEmployeesJoinedAfter2025Sorted() {
+        Predicate<Employee> isJoinedAfter2015 = e -> e.getYearOfJoining() > 2015;
+
         employees.stream()
-                .filter(e -> e.getYearOfJoining() > 2015)
-                .map(e -> e.getName())
+                .filter(isJoinedAfter2015)
+                .map(Employee::getName)
                 .sorted(Comparator.naturalOrder())
                 .forEach(System.out::println);
     }
 
     private static void printHighestPaidEmployee() {
         // 1. approach
-        BinaryOperator<Employee> withSalaryGreater = (e1, e2) -> e1.getSalary() > e2.getSalary() ? e1 : e2;
-        employees.stream().reduce(withSalaryGreater)
+        // reduce using binary operator
+        BinaryOperator<Employee> greaterSalary = (e1, e2) -> e1.getSalary() > e2.getSalary() ? e1 : e2;
+        employees.stream().reduce(greaterSalary)
                 .ifPresent(System.out::println);
 
-        // 2. approach
+        // 2. approach streams api
+        // collect using maxBy collector & compare with comparing comparator.
         employees.stream()
                 .collect(Collectors.maxBy(Comparator.comparing(Employee::getSalary)))
                 .ifPresent(System.out::println);
     }
 
-    private static void printAverageAgeByGender() {
+    private static void printAgeAverageByGender() {
+        // classify by gender & reduce using averageDouble collector
         employees.stream()
                 .collect(Collectors.groupingBy(
                                 Employee::getGender, // classifier
-                                //Collectors.mapping(Employee::getAge, toList())
                                 Collectors.averagingDouble(Employee::getAge) // downstream reduction
                         )
                 )
@@ -225,6 +233,7 @@ public class EmployeesApplicationDemo {
     }
 
     private static void printDepartmentNamesSorted() {
+        // map employee to department & remove duplicates & sort by natural order
         employees.stream()
                 .map(Employee::getDepartment)
                 .distinct()
@@ -232,21 +241,26 @@ public class EmployeesApplicationDemo {
                 .forEach(System.out::println);
     }
 
-    public static void printCountEmployeeGroupByGender() {
-        // employees grouped by gender
+    public static void printEmployeesNumberPerGender() {
+        // classify by gender & collect employee to list
         Map<String, List<Employee>> employeesGroupByGender = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getGender, Collectors.toList()));
+                .collect(Collectors.groupingBy(
+                        Employee::getGender,
+                        Collectors.toList()
+                        )
+                );
         //employeesGroupByGender.forEach((gKey, eValue) -> System.out.println(gKey + " : " + eValue));
 
-        // employees name grouped by gender
+        // classify by gender & collect mapped employees by name to list
         Map<String, List<String>> employeesNameGroupByGender = employees.stream()
                 .collect(Collectors.groupingBy(
                         Employee::getGender,
-                        Collectors.mapping(Employee::getName, toList()
+                        Collectors.mapping(Employee::getName, Collectors.toList())
                         )
-                ));
+                );
         //employeesNameGroupByGender.forEach((gKey, nValue) -> System.out.println(gKey + " : " + nValue));
 
+        // classify by gender & reduce by counting collector
         employees.stream()
                 .collect(Collectors.groupingBy(
                                 Employee::getGender,
@@ -257,6 +271,9 @@ public class EmployeesApplicationDemo {
     }
 
     public static void printEmployeesAgeGreaterThan(int age) {
-        System.out.println(employees.stream().filter(e -> e.getAge() > age).count());
+        employees.stream()
+                .filter(e -> e.getAge() > age)
+                .map(Employee::getName)
+                .forEach(System.out::println);
     }
 }

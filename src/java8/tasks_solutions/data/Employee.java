@@ -1,4 +1,4 @@
-package java8.practice.data;
+package java8.tasks_solutions.data;
 
 public class Employee {
     private String 	name;
