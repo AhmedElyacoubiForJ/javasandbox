@@ -41,19 +41,19 @@ public class EmployeesApplicationDemo {
         //printYoungestMaleInProductDevelopment();
 
         // 9. Who has the most working experience in the organization?
-        printWithMoreExperience();
+        //printEmployeeWithMoreExperience();
 
         // 10. How many male and female employees are there in the sales and marketing team?
-        //printNumberPerGenderInSalesAndMarketingDepartment();
+        // printNumberInSalesAndMarketingDepartmentPerGender();
 
         // 11. What is the average salary of male and female employees?
-        //printAverageSalaryPerGender();
+        //printSalaryAveragePerGender();
 
         // 12. List down the names of all employees in each department?
-        //printNamesPerDepartment();
+        //printEmployeeNamesPerDepartment();
 
         // 13. What is the average salary and total salary of the whole organization?
-        //printSalaryStatisticsOfTheOrganisation();
+        printSalaryStatisticsOfTheOrganisation();
 
         // 14. Separate the employees who are younger or equal to 25 years
         //     from those employees who are older than 25 years.
@@ -118,46 +118,51 @@ public class EmployeesApplicationDemo {
         System.out.println("Total Salary = " + salaryStatistics2.getSum());
     }
 
-    private static void printNamesPerDepartment() {
-        // classify by gender, mapping by name and collect the mapping result to toList
+    private static void printEmployeeNamesPerDepartment() {
+        // collect steps: classify by gender, mapping by name and collect the mapping result to toList
         employees.stream()
                 .collect(Collectors.groupingBy(
                                 Employee::getDepartment,
                                 Collectors.mapping(Employee::getName, toList())
                         )
                 )
-                .forEach((k, v) -> System.out.println(k + "=" + v));
+                .forEach((k, v) -> System.out.println(k + " = " + v));
     }
 
-    private static void printAverageSalaryPerGender() {
-        // classify by gender, salary average as reduce operation
+    private static void printSalaryAveragePerGender() {
+        // collect steps: classify by gender, averagingDouble collector as reducer
         employees.stream()
                 .collect(Collectors.groupingBy(
                                 Employee::getGender,
                                 Collectors.averagingDouble(Employee::getSalary)
                         )
                 )
-                .forEach((k, v) -> System.out.println(k + "=" + v));
+                .forEach((genderKey, salaryAverageValue) -> System.out.println(genderKey + " = " + salaryAverageValue));
     }
 
-    private static void printNumberPerGenderInSalesAndMarketingDepartment() {
-        // 1. filter by department
-        // 2. classify by gender, counting as reduce operation
+    private static void printNumberInSalesAndMarketingDepartmentPerGender() {
         Predicate<Employee> isSalesAndMarketing = e -> "Sales And Marketing".equals(e.getDepartment());
+        // filter by defined department
+        // & collect with classified gender
+        // & reduce with counting collector
         employees.stream()
                 .filter(isSalesAndMarketing)
                 .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()))
-                .forEach((k, v) -> System.out.println(k + "=" + v));
+                .forEach((genderKey, countValue) -> System.out.println(genderKey + " = " + countValue));
     }
 
-    private static void printWithMoreExperience() {
+    private static void printEmployeeWithMoreExperience() {
+        Comparator<Employee> comparator = Comparator.comparingInt(Employee::getYearOfJoining);
+
         // 1. approach
+        // either using the min method
         employees.stream()
-                .min(Comparator.comparingInt(Employee::getYearOfJoining))
+                .min(comparator)
                 .ifPresent(System.out::println);
         // 2. approach
+        // or the sorted method, with respectively the same comparator
         employees.stream()
-                .sorted(Comparator.comparingInt(Employee::getYearOfJoining))
+                .sorted(comparator)
                 .findFirst()
                 .ifPresent(System.out::println);
     }
