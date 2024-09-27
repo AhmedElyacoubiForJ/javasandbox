@@ -8,13 +8,8 @@ import java.util.stream.Collectors;
  * */
 public class ConvertToUpperCaseStreams {
     public static void main(String[] args) {
-        List<String> lines = List.of(
-                "hello",
-                "world",
-                "java"
-        );
+        List<String> lines = List.of("hello", "world", "java");
 
-        // Output: [HELLO, WORLD, JAVA]
         System.out.println(convertToUpperCase(lines));
     }
 
