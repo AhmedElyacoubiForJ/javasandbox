@@ -6,10 +6,17 @@ public class ReverseString {
 //        System.out.println("Original String: " + input);
 //        System.out.println("Reversed String: " + reverseUsingCharArray(input));
 
-        performanceTestsForAllMethods();
+        //performanceTestsForAllMethods();
+
 
         //testReverseUsingCharArrayPass();
         //testReverseUsingCharArrayFailed();
+
+        String input = "java interview";
+        System.out.println(reverseUsingSubstring(input));
+        //System.out.println(input.substring(0, input.length()));
+        //System.out.println(input.substring(1, 2));
+        //System.out.println(input.substring(input.length()-1 ,input.length()-2));
     }
 
     private static String reverseUsingCharArray(String input) {
@@ -20,6 +27,15 @@ public class ReverseString {
             output[j] = inputCharArray[i];
         }
         return new String(output);
+    }
+
+    private static String reverseUsingSubstring(String input) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            input.substring(i, i + 1);
+
+        }
+        return input;
     }
 
     private static String reverseUsingStringBuilder(String input) {
@@ -50,7 +66,7 @@ public class ReverseString {
     public static void performanceTestsForAllMethods() {
         String in = " java interview";
         StringBuilder input = new StringBuilder();
-        for (int i = 0; i<=1000000; i++)  {
+        for (int i = 0; i <= 1000000; i++) {
             input.append(in);
         }
 
