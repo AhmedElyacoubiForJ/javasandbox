@@ -1,4 +1,4 @@
-package javapattern;
+package patternprinter;
 
 public class HalfPyramidMuster {
     public static void main(String[] args) {
