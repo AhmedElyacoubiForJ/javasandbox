@@ -5,7 +5,7 @@ package designpattern;
  * In einem Logging-System wird oft das Singleton-Muster verwendet, um sicherzustellen,
  * dass nur ein Logger existiert, der von verschiedenen Teilen der Anwendung verwendet werden.
  * */
-public class SingletonDemo {
+public class SingletonPatternDemo {
     public static void main(String[] args) {
         Logger logger1 = Logger.getInstance();
         Logger logger2 = Logger.getInstance();

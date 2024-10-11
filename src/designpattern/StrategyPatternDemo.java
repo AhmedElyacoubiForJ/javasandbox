@@ -10,7 +10,7 @@ interface PricingStrategy {
  * für verschiedene Arten von Buchungen verwendet werden.
  *
  * */
-public class PricingStrategyDemonstration {
+public class StrategyPatternDemo {
     public static void main(String[] args) {
         Booking booking = new Booking();
 
