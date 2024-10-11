@@ -3,14 +3,18 @@ package designpattern;
 import java.util.ArrayList;
 import java.util.List;
 
+interface Observer {
+    void update(int price);
+}
+
 /*
-* Ermöglicht einem Objekt, eine Abhängigkeit zu einer Menge von Beobachtern zu
-* unterhalten und alle automatisch zu benachrichtigen,
-* wenn sich der Zustand ändert.
-* Beispiel: In einem Börsensystem, bei dem die Kurse aktualisiert werden
-* und mehrere Benutzer benachrichtigt werden sollen.
-*
-* */
+ * Ermöglicht einem Objekt, eine Abhängigkeit zu einer Menge von Beobachtern zu
+ * unterhalten und alle automatisch zu benachrichtigen,
+ * wenn sich der Zustand ändert.
+ * Beispiel: In einem Börsensystem, bei dem die Kurse aktualisiert werden
+ * und mehrere Benutzer benachrichtigt werden sollen.
+ *
+ * */
 public class ObserverPatternDemo {
     public static void main(String[] args) {
         Stock stock = new Stock();
@@ -45,16 +49,13 @@ class Stock {
     }
 }
 
-interface Observer {
-    void update(int price);
-}
-
 class Investor implements Observer {
     private String name;
 
     public Investor(String name) {
         this.name = name;
     }
+
     @Override
     public void update(int price) {
         System.out.println("Investor " + name + " has received a new price update: " + price);
